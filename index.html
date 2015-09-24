@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>API Management with JBoss Apiman</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme"><style>.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments  { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */</style><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet"><script type="text/javascript">document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section id="_api_management_with_jboss_apiman"><h2>API Management with JBoss Apiman</h2><div class="paragraph"><p>Jakub Čecháček &lt;<a href="mailto:jcechace@redhat.com">jcechace@redhat.com</a>&gt;</p></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lecture/logo_rh.png" alt="logo"></div></div></section>
+<section id="_lecture_overview"><h2>Lecture Overview</h2><div class="ulist"><ul><li><p>Why do we need API Management?</p></li><li><p>What is JBoss apiman?</p></li><li><p>Architecture</p></li><li><p>Data Model</p></li><li><p>Policies available OOTB</p></li></ul></div></section>
+<section id="_apis_apis_everywhere"><h2>APIs, APIs Everywhere</h2><div class="ulist"><ul><li><p>Service Oriented Architecture (SOA) is often used</p></li><li><p>It&#8217;s easier to compose new applications from existing APIs</p></li><li><p>Single business logic</p></li><li><p>Multiple clients</p></li><li><p>SOAP, REST, or any other RESTful API</p></li></ul></div></section>
+<section><section id="_microservices_on_the_way"><h2>Microservices on the way</h2><div class="ulist"><ul><li><p>Each service is deployed separately</p></li><li><p>Implementing only narrow functionality</p></li><li><p>SOA done right!</p></li><li><p>Large number of (micro) services</p></li><li><p>Cross cutting concerns</p></li></ul></div></section><section id="_micro_vs_mono"><h2>Micro Vs. Mono</h2><div class="imageblock" style=""><div class="content"><img src="resources/lecture/microvsmono.png" alt="logo"></div></div></section></section>
+<section id="_why_api_management"><h2>Why API Management?</h2><div class="ulist"><ul><li><p>Authentication and Authorization</p></li><li><p>Usage statistics</p></li><li><p>Limiting access to your API</p></li><li><p>Version management</p></li><li><p>Billing</p></li><li><p>Additional layer of request/response control</p></li></ul></div></section>
+<section id="_jboss_apiman"><h2>JBoss apiman</h2><div class="ulist"><ul><li><p>Open source API management tool</p></li><li><p>Young and rapidly growing project</p></li><li><p>Current version is 1.1.8.Final</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lecture/apiman_logo.png" alt="logo" width="20%" height="20%"></div></div></section>
+<section id="_advantages"><h2>Advantages</h2><div class="ulist"><ul><li><p>Rich management Layer</p></li><li><p>Easily embeddable and extensible</p></li><li><p>Fully asynchronous</p></li><li><p>Built with Scalability in mind</p></li><li><p>Configuration in single property file</p></li></ul></div></section>
+<section id="_architecture"><h2>Architecture</h2><div class="imageblock" style=""><div class="content"><img src="resources/lecture/architecture.png" alt="architecture"></div></div></section>
+<section><section id="_api_manager"><h2>API Manager</h2><div class="ulist"><ul><li><p>Sort and structure your APIs</p></li><li><p>Set of REST endpoints</p></li><li><p>Configuration time</p></li></ul></div></section><section id="_management_ui"><h2>Management UI</h2><div class="ulist"><ul><li><p>Provides an easy way to configure your API management</p></li><li><p>Lightweight angular.js application</p></li><li><p>Under the hood utilizes manager&#8217;s REST API</p></li></ul></div></section><section id="_management_ui_2"><h2>Management UI</h2><div class="imageblock" style=""><div class="content"><img src="resources/lecture/manager.png" alt="Management UI" width="70%" height="70%"></div></div></section></section>
+<section id="_api_gateway"><h2>API Gateway</h2><div class="ulist"><ul><li><p>A proxy between client and APIs</p></li><li><p>Multiple platforms (servlet, vert.x)</p></li><li><p>Applies policies to API requests</p></li><li><p>Execution time</p></li></ul></div></section>
+<section id="_policies"><h2>Policies</h2><div class="ulist"><ul><li><p>Rules applied on request / response at runtime</p></li><li><p>Manipulate request / response headers</p></li><li><p>Manipulate the payload data</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lecture/policies.png" alt="Policies"></div></div></section>
+<section id="_manager_vs_gateway"><h2>Manager Vs. Gateway</h2><div class="ulist"><ul><li><p>Gateway REST API</p></li><li><p>Configuration is published (pushed) to gateway</p></li><li><p>Once published service can&#8217;t be modified</p></li></ul></div></section>
+<section id="_entity_hierarchy"><h2>Entity Hierarchy</h2></section>
+<section><section id="_organizations"><h2>Organizations</h2><div class="ulist"><ul><li><p>Top level structure unit</p></li><li><p>Representation of a company, department, team,&#8230;&#8203;</p></li><li><p>Consumed and Provided APIs</p></li></ul></div></section><section id="_roles_permissions"><h2>Roles &amp; Permissions</h2><div class="ulist"><ul><li><p>Service, Plan, Application</p></li><li><p>View / Edit / Admin</p></li><li><p>Auto-granted roles</p></li></ul></div></section><section id="_out_of_the_box_roles"><h2>Out of the Box Roles</h2><div class="ulist"><ul><li><p>Organization owner</p></li><li><p>Application developer</p></li><li><p>Service provider</p></li></ul></div></section></section>
+<section><section id="_services"><h2>Services</h2><div class="ulist"><ul><li><p>Representation service provider</p></li><li><p>Backed by REST or SOAP endpoint</p></li><li><p>Version management</p></li></ul></div></section><section id="_accessing_to_services"><h2>Accessing to Services</h2><div class="ulist"><ul><li><p>Public service accessible to anyone</p></li><li><p>Service available through plan to registered consumers</p></li></ul></div></section></section>
+<section id="_plans"><h2>Plans</h2><div class="ulist"><ul><li><p>Set of defined policies</p></li><li><p>Way to share policy configuration between services</p></li><li><p>Way to distinguish between categories of your consumers</p></li></ul></div></section>
+<section><section id="_applications"><h2>Applications</h2><div class="ulist"><ul><li><p>Counterpart to Services</p></li><li><p>Representation of service consumer</p></li><li><p>Application can consume multiple services</p></li></ul></div></section><section id="_contracts"><h2>Contracts</h2><div class="ulist"><ul><li><p>Application, Service, Plan</p></li><li><p>Form of subscription</p></li><li><p>Application is assigned a unique API key</p></li></ul></div></section></section>
+<section id="_policy_chain"><h2>Policy Chain</h2><div class="imageblock" style=""><div class="content"><img src="resources/lecture/policy_chain.png" alt="Policy chain"></div></div></section>
+<section id="_versioning"><h2>Versioning</h2><div class="ulist"><ul><li><p>Is supported on each level: Application, Service, Plan</p></li><li><p>Version needs to be pushed to the Gateway</p></li><li><p>register / publish / lock</p></li></ul></div></section>
+<section><section id="_out_of_the_box_policies"><h2>Out of the Box Policies</h2></section><section id="_rate_limiting"><h2>Rate Limiting</h2><div class="ulist"><ul><li><p>Throttle the number of requests to your API</p></li><li><p>User, Application, Service</p></li><li><p>Per unit of time (second, minute, hour, etc&#8230;&#8203;)</p></li></ul></div></section><section id="_transfer_quotas"><h2>Transfer Quotas</h2><div class="ulist"><ul><li><p>Throttle the amount of data transfered through your API</p></li><li><p>Download, Upload, Combined</p></li><li><p>User, Application, Service</p></li><li><p>Per unit of time (second, minute, hour, etc&#8230;&#8203;)</p></li></ul></div></section><section id="_ignored_resource"><h2>Ignored Resource</h2><div class="ulist"><ul><li><p>Disable parts of your API</p></li><li><p>Support for regular expressions</p></li></ul></div></section><section id="_basic_authorization"><h2>Basic Authorization</h2><div class="ulist"><ul><li><p>Adds HTPP BASIC authentication to API request</p></li><li><p>Multiple identity stores (static, JDBC, LDAP)</p></li></ul></div></section><section id="_ip_address_filtering"><h2>IP Address Filtering</h2><div class="ulist"><ul><li><p>Two policies (Whitelist and Blacklist)</p></li><li><p>List of IP addresses with allowed / denied access</p></li><li><p>Support for wildcards</p></li></ul></div></section></section>
+<section><section id="_plugins"><h2>Plugins</h2><div class="ulist"><ul><li><p>Java Web Archive (WAR) with JSON descriptor</p></li><li><p>Distributed through maven</p></li><li><p>Search local repository first</p></li><li><p>Plugin registry</p></li></ul></div></section><section id="_plugin_registry"><h2>Plugin registry</h2><div class="ulist"><ul><li><p>Simple JSON Descriptor</p></li><li><p>Maven repository</p></li><li><p>List of plugin artifacts</p></li></ul></div></section><section id="_registry_json"><h2>registry.json</h2><div class="listingblock"><div class="content"><pre class="pygments highlight"><code class="json language-json"><span class="tok-p">{</span>
+  <span class="tok-nt">&quot;name&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;Official apiman Plugins&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;description&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;This plugin registry lists all of the official apiman plugins.  No third party plugins are included in this registry.&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;version&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;1.2.0-SNAPSHOT&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;repository&quot;</span> <span class="tok-p">:</span> <span class="tok-p">{</span>
+    <span class="tok-nt">&quot;name&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;JBoss Public Maven Repository&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nt">&quot;url&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;http://repository.jboss.org/nexus/content/groups/public/&quot;</span>
+  <span class="tok-p">},</span>
+  <span class="tok-nt">&quot;plugins&quot;</span> <span class="tok-p">:</span> <span class="tok-p">[</span>
+    <span class="tok-p">{</span>
+      <span class="tok-nt">&quot;groupId&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;io.apiman.plugins&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;artifactId&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;apiman-plugins-cors-policy&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;version&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;1.2.0-SNAPSHOT&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;name&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;CORS Policy Plugin&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;description&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;This plugin implements CORS (Cross-origin resource sharing): A method of controlling access to resources outside of an originating domain.&quot;</span>
+    <span class="tok-p">},</span>
+    <span class="tok-p">{</span>
+      <span class="tok-nt">&quot;groupId&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;io.apiman.plugins&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;artifactId&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;apiman-plugins-http-security-policy&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;version&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;1.2.0-SNAPSHOT&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;name&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;HTTP Security Policy Plugin&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;description&quot;</span> <span class="tok-p">:</span> <span class="tok-s2">&quot;Provides a policy which allows security-related HTTP headers to be set, which can help mitigate a range of common security vulnerabilities.&quot;</span>
+    <span class="tok-p">}</span>
+  <span class="tok-p">]</span>
+<span class="tok-p">}</span></code></pre></div></div></section></section>
+<section id="_what_s_to_come"><h2>What&#8217;s to come?</h2><div class="ulist"><ul><li><p>Billing support</p></li><li><p>Developer portals</p></li><li><p>Support for WebSocket</p></li><li><p>Support for Messaging</p></li></ul></div></section>
+<section id="_get_involved"><h2>Get Involved</h2><div class="ulist"><ul><li><p>Homepage: <a href="http://www.apiman.io" class="bare">http://www.apiman.io</a></p></li><li><p>Sources: <a href="https://github.com/apiman/apiman" class="bare">https://github.com/apiman/apiman</a></p></li><li><p>Mailing list: <a href="mailto:apiman-user@lists.jboss.org">apiman-user@lists.jboss.org</a></p></li><li><p>IRC channel: #apiman on Freenode</p></li></ul></div></section>
+<section id="_questions"><h2>Questions?</h2></section>
+<section id="_thank_you"><h2>Thank You!</h2></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script type="text/javascript">// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: true,
+  // Push each slide change to the browser history
+  history: false,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'solarized',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      
+      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>

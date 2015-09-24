@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>JBoss Apiman: Hands on Lab</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme"><style>.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments  { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */</style><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet"><script type="text/javascript">document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section id="_jboss_apiman_hands_on_lab"><h2>JBoss Apiman: Hands on Lab</h2><div class="paragraph"><p>Jakub Čecháček &lt;<a href="mailto:jcechace@redhat.com">jcechace@redhat.com</a>&gt;</p></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lecture/logo_rh.png" alt="logo"></div></div></section>
+<section><section id="_1_download_and_run_jboss_apiman"><h2>1. Download and Run JBoss apiman</h2></section><section id="_download"><h2>Download</h2><div class="ulist"><ul><li><p><a href="http://download.jboss.org/wildfly/8.2.0.Final/wildfly-8.2.0.Final.zip">Wildfly 8.2.0.Final</a></p></li><li><p><a href="http://downloads.jboss.org/apiman/1.2.0.Alpha2/apiman-distro-wildfly8-1.2.0.Alpha2-overlay.zip">Apiman Overlay 1.2.0.Alpha2</a></p></li></ul></div></section><section id="_install"><h2>Install</h2><div class="listingblock"><div class="content"><pre class="pygments highlight"><code class="bash language-bash"><span class="tok-nv">$ </span>unzip wildfly-8.2.0.Final.zip
+<span class="tok-nv">$ </span>unzip apiman-distro-wildfly8-1.2.0.Alpha2-overlay.zip -d wildfly-8.2.0.Final</code></pre></div></div></section><section id="_run"><h2>Run</h2><div class="listingblock"><div class="content"><pre class="pygments highlight"><code class="bash language-bash"><span class="tok-nv">$ </span><span class="tok-nb">cd </span>wildfly-8.2.0.Final
+<span class="tok-nv">$ </span>./bin/standalone.sh -c standalone-apiman.xml</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="pygments highlight"><code class="bash language-bash">11:02:54,989 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 29<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;services.war&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;services.war&quot;</span><span class="tok-o">)</span>
+11:02:54,989 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 51<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;main-auth-server.war&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;main-auth-server.war&quot;</span><span class="tok-o">)</span>
+11:02:54,989 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 29<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;authtest-ds.xml&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;authtest-ds.xml&quot;</span><span class="tok-o">)</span>
+11:02:54,990 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 29<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;apimanui.war&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;apimanui.war&quot;</span><span class="tok-o">)</span>
+11:02:54,990 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 29<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;apiman.war&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;apiman.war&quot;</span><span class="tok-o">)</span>
+11:02:54,990 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 29<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;apiman-gateway.war&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;apiman-gateway.war&quot;</span><span class="tok-o">)</span>
+11:02:54,990 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 29<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;apiman-gateway-api.war&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;apiman-gateway-api.war&quot;</span><span class="tok-o">)</span>
+11:02:54,990 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 29<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;apiman-es.war&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;apiman-es.war&quot;</span><span class="tok-o">)</span>
+11:02:54,990 INFO  <span class="tok-o">[</span>org.jboss.as.server<span class="tok-o">]</span> <span class="tok-o">(</span>ServerService Thread Pool -- 29<span class="tok-o">)</span> JBAS018559: Deployed <span class="tok-s2">&quot;apiman-ds.xml&quot;</span> <span class="tok-o">(</span>runtime-name : <span class="tok-s2">&quot;apiman-ds.xml&quot;</span><span class="tok-o">)</span>
+11:02:54,997 INFO  <span class="tok-o">[</span>org.jboss.as<span class="tok-o">]</span> <span class="tok-o">(</span>Controller Boot Thread<span class="tok-o">)</span> JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+11:02:54,998 INFO  <span class="tok-o">[</span>org.jboss.as<span class="tok-o">]</span> <span class="tok-o">(</span>Controller Boot Thread<span class="tok-o">)</span> JBAS015951: Admin console listening on http://127.0.0.1:9990
+11:02:54,998 INFO  <span class="tok-o">[</span>org.jboss.as<span class="tok-o">]</span> <span class="tok-o">(</span>Controller Boot Thread<span class="tok-o">)</span> JBAS015874: WildFly 8.2.0.Final <span class="tok-s2">&quot;Tweek&quot;</span> started in 10477ms - Started <span class="tok-m">935</span> of <span class="tok-m">1060</span> services <span class="tok-o">(</span><span class="tok-m">203</span> services are lazy, passive or on-demand<span class="tok-o">)</span>
+11:02:55,000 INFO  <span class="tok-o">[</span>org.elasticsearch.gateway<span class="tok-o">]</span> <span class="tok-o">(</span>elasticsearch<span class="tok-o">[</span>Gronk<span class="tok-o">][</span>clusterService#updateTask<span class="tok-o">][</span>T#1<span class="tok-o">])</span> <span class="tok-o">[</span>Gronk<span class="tok-o">]</span> recovered <span class="tok-o">[</span>1<span class="tok-o">]</span> indices into cluster_state</code></pre></div></div></section></section>
+<section><section id="_2_deploy_the_echo_quickstart"><h2>2. Deploy The Echo Quickstart</h2></section><section id="_clone_the_repository"><h2>Clone the repository</h2><div class="listingblock"><div class="content"><pre class="pygments highlight"><code class="bash language-bash"><span class="tok-nv">$ </span>git clone https://github.com/apiman/apiman-quickstarts.git</code></pre></div></div></section><section id="_build"><h2>Build</h2><div class="listingblock"><div class="content"><pre class="pygments highlight"><code class="bash language-bash"><span class="tok-nv">$ </span><span class="tok-nb">cd </span>apiman-quickstarts
+<span class="tok-nv">$ </span>mvn clean install -DskipTests</code></pre></div></div></section><section id="_deploy"><h2>Deploy</h2><div class="listingblock"><div class="content"><pre class="pygments highlight"><code class="bash language-bash"><span class="tok-nv">$ </span><span class="tok-nb">cd</span> <span class="tok-s2">&quot;echo-service&quot;</span>
+<span class="tok-nv">$ </span>mvn wildfly:deploy</code></pre></div></div>
+<div class="paragraph"><p><em>For the purpose of this lab we are deploying to the same server as the one used by apiman. In production environment you would use a separate deployment server.</em></p></div></section><section id="_try_the_service"><h2>Try the service</h2><div class="listingblock"><div class="content"><pre class="pygments highlight"><code class="bash language-bash"><span class="tok-nv">$ </span>curl http://localhost:8080/apiman-echo
+<span class="tok-o">{</span>
+  <span class="tok-s2">&quot;method&quot;</span> : <span class="tok-s2">&quot;GET&quot;</span>,
+  <span class="tok-s2">&quot;resource&quot;</span> : <span class="tok-s2">&quot;/apiman-echo&quot;</span>,
+  <span class="tok-s2">&quot;uri&quot;</span> : <span class="tok-s2">&quot;/apiman-echo&quot;</span>,
+  <span class="tok-s2">&quot;headers&quot;</span> : <span class="tok-o">{</span>
+    <span class="tok-s2">&quot;Accept&quot;</span> : <span class="tok-s2">&quot;*/*&quot;</span>,
+    <span class="tok-s2">&quot;User-Agent&quot;</span> : <span class="tok-s2">&quot;curl/7.43.0&quot;</span>,
+    <span class="tok-s2">&quot;Host&quot;</span> : <span class="tok-s2">&quot;localhost:8080&quot;</span>
+  <span class="tok-o">}</span>,
+  <span class="tok-s2">&quot;bodyLength&quot;</span> : null,
+  <span class="tok-s2">&quot;bodySha1&quot;</span> : null
+<span class="tok-o">}</span></code></pre></div></div>
+<div class="paragraph"><p>The response from <em>apiman-echo</em> endpoint is a JSON formatted information about the request.</p></div></section></section>
+<section><section id="_3_management_rest_api"><h2>3. Management REST API</h2></section><section id="_accessing_the_rest_api"><h2>Accessing the REST API</h2><div class="ulist"><ul><li><p>Available at <a href="http://localhost:8080/apiman" class="bare">http://localhost:8080/apiman</a></p></li><li><p>Documentation available <a href="http://www.apiman.io/latest/api-manager-restdocs.html">here</a></p></li><li><p>Username: "admin"</p></li><li><p>Password: "admin123!"</p></li></ul></div></section><section id="_postman_rest_client"><h2>Postman REST client</h2><div class="ulist"><ul><li><p><a href="https://www.getpostman.com">Postman HTTP client for Google Chrome</a></p></li><li><p><a href="https://www.getpostman.com/collections/063fdd9e365859cfab12">Request collection for Postman</a></p></li></ul></div></section><section id="_import_request_collection"><h2>Import request collection</h2><div class="imageblock" style=""><div class="content"><img src="resources/lab/postman_import.png" alt="Postman collection import"></div></div></section><section id="_using_the_rest_api"><h2>Using the REST API</h2><div class="imageblock" style=""><div class="content"><img src="resources/lab/postman_requests.png" alt="Postman requests"></div></div></section></section>
+<section><section id="_4_meet_the_management_ui"><h2>4. Meet the Management UI</h2></section><section id="_accessing_the_management_ui"><h2>Accessing the Management UI</h2><div class="ulist"><ul><li><p>Point your browser to <a href="http://localhost:8080/apimanui" class="bare">http://localhost:8080/apimanui</a></p></li><li><p>Username: "admin"</p></li><li><p>Password: "admin123!"</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_login.png" alt="Login Page" width="50%" height="50%"></div></div></section><section id="_manage_organizations"><h2>Manage organizations</h2><div class="ulist"><ul><li><p>Inspect the previously created <strong>"cvut"</strong> organization</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_home_myorgs.png" alt="My Organizations" width="80%" height="80%"></div></div></section></section>
+<section><section id="_5_manage_plans_in_ui"><h2>5. Manage plans in UI</h2></section><section id="_create_a_plan"><h2>Create a Plan</h2><div class="ulist"><ul><li><p>Create a new plan under the <strong>"cvut"</strong> organization</p></li><li><p>Name it <strong>"student-plan"</strong></p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_org_plans.png" alt="Organization plans" width="80%" height="80%"></div></div></section><section id="_add_rate_limit"><h2>Add Rate Limit</h2><div class="ulist"><ul><li><p>Add a Rate Limiting policy</p></li><li><p>Allowing 20 requests per application to service per minute</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_policy_config.png" alt="Add Rate Limiting Policy" width="60%" height="60%"></div></div></section><section id="_lock_the_plan"><h2>Lock the plan</h2><div class="ulist"><ul><li><p>Once locked, plan can be used by services</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_plan_lock.png" alt="Locking the plan"></div></div></section><section id="_create_second_plan"><h2>Create Second Plan</h2><div class="ulist"><ul><li><p>Add another plan to the <strong>"cvut"</strong> organization</p></li><li><p>Name it <strong>"professor-plan"</strong></p></li><li><p>Services under this plan will accept only 10 requests per minute from each app</p></li><li><p>Don&#8217;t forget to lock the plan</p></li></ul></div></section></section>
+<section><section id="_6_manage_services_in_ui"><h2>6. Manage Services in UI</h2></section><section id="_manage_services"><h2>Manage Services</h2><div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_org_services.png" alt="Organization services" width="80%" height="80%"></div></div></section><section id="_create_new_service_version_echo_2_0"><h2>Create New Service Version (Echo 2.0)</h2><div class="ulist"><ul><li><p>Create a new version of echo service.</p></li><li><p>Clone the configuration from version 1.0</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_service_new_version.png" alt="New service version"></div></div></section><section id="_service_and_plans"><h2>Service and Plans</h2><div class="ulist"><ul><li><p>Echo 2.0 will be available through created plans</p></li><li><p>This version will not be publicly accessible</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_service_plans.png" alt="Service plan configuration" width="70%" height="70%"></div></div></section><section id="_publish_service_version"><h2>Publish service version</h2><div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_service_publish.png" alt="Publish service version"></div></div></section></section>
+<section><section id="_7_manage_applications_in_ui"><h2>7. Manage Applications in UI</h2></section><section id="_create_an_application"><h2>Create an Application</h2><div class="ulist"><ul><li><p>Create new application</p></li><li><p>Name it <strong>"StudentApp"</strong></p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_org_apps.png" alt="Create application"></div></div></section><section id="_add_service_contract"><h2>Add Service Contract</h2><div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_app_contracts.png" alt="Application contracts"></div></div></section><section id="_add_service_contract_application"><h2>Add Service Contract: Application</h2><div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_app_contract_app.png" alt="Create contract: App"></div></div></section><section id="_add_service_contract_service"><h2>Add Service Contract: Service</h2><div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_app_contract_service.png" alt="Create contract: Service"></div></div></section><section id="_add_service_contract_plan"><h2>Add Service Contract: Plan</h2><div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_app_contract_plan.png" alt="Create contract: Plan"></div></div></section><section id="_register_the_application"><h2>Register the Application</h2><div class="ulist"><ul><li><p>Once registered, the application will be assigned an API key for each service contract</p></li></ul></div></section><section id="_obtain_managed_endpoint"><h2>Obtain managed endpoint</h2><div class="ulist"><ul><li><p>Try to invoke the echo service as <strong>"StudentApp"</strong></p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="resources/lab/ui_app_apis.png" alt="Consumed APIs" width="70%" height="70%"></div></div></section><section id="_create_second_application"><h2>Create Second Application</h2><div class="ulist"><ul><li><p>Create new application</p></li><li><p>Name it <strong>"ProfessorApp"</strong></p></li><li><p>This app will use the echo service through the <strong>"professor-plan"</strong></p></li></ul></div></section></section>
+<section id="_do_not_stop_here"><h2>Do not stop here!</h2></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script type="text/javascript">// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: true,
+  // Push each slide change to the browser history
+  history: false,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'solarized',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      
+      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>
