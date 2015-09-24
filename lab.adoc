@@ -2,7 +2,7 @@
 :revealjs_theme: solarized
 :reaveljs_control: false
 :revealjs_slideNumber: true
-:revealjs_fragments: true
+:revealjs_history: true
 :revealjs_center: true
 :source-highlighter: pygments
 
